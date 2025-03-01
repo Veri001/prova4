@@ -1,0 +1,260 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+.header {
+    background: url('img/hero4.png') no-repeat center center/cover;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 50px;
+    margin-top: 20px;
+    color: white;
+    font-size: 2em;
+    font-weight: bold;
+}
+.header h3{
+    color: black;
+}
+
+h1 {
+    margin: 20px 0;
+}
+
+
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* 2 produkte në telefon */
+    gap: 15px;
+    padding: 10px;
+    justify-content: center;
+}
+
+
+.gallery-item {
+    background: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+.gallery-item:hover {
+    transform: scale(1.05);
+}
+.gallery-item img {
+    width: 100%;
+    max-width: 180px; /* Përmasë standarde për të gjitha produktet */
+    height: 180px;
+    object-fit: contain; /* Bën që imazhet të mos deformohen */
+    border-radius: 5px;
+}
+
+.gallery-item a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+}
+
+.cart-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.cart-button:hover {
+    background-color: #e65c00;
+    transform: scale(1.05);
+}
+
+/* Stili për popup */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    z-index: 1000;
+    text-align: center;
+}
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+.home-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.home-button:hover{
+    background-color: #e65c00;
+    transform: scale(1.05);
+}
+.admin-button {
+    position: absolute;
+    top: 60px;
+    left: 10px;
+    background-color: #007BFF; /* Blu si buton Admin */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+.admin-button:hover {
+    background-color: #0056b3;
+}
+
+
+
+@media (max-width: 600px) {
+    .cart-button {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+    h1 {
+        text-align: center;
+        margin-top: 50px; /* E ul titullin pak më poshtë */
+    }
+}
+
+
+
+/* Layout */
+.admin-container {
+    width: 100%;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Qendrimi i elementeve në qendër */
+}
+
+/* Header */
+.admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.back-button {
+    font-size: 20px;
+    background-color: transparent;
+    color: #007bff;
+    border: none;
+    font-weight: bold;
+}
+
+/* Main Content */
+.admin-main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Product Form */
+.product-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 20px;
+}
+
+.product-form input,
+.product-form button {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.product-form input[type="file"] {
+    padding: 8px;
+}
+
+/* Product List */
+.product-list {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+}
+
+.product-list div {
+    margin-bottom: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .admin-main {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .admin-container {
+        padding: 15px;
+    }
+
+    .product-form,
+    .product-list {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .back-button {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 24px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+}

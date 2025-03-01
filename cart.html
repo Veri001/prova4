@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shporta</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        #cart-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+            display: inline-block;
+            width: 90%;
+            max-width: 800px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #ff6600;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        button {
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #e65c00;
+        }
+        #total {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Shporta</h1>
+    <div id="cart-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Produkt</th>
+                    <th>Çmimi</th>
+                    <th>Sasia</th>
+                    <th>Totali</th>
+                    <th>Veprimi</th>
+                </tr>
+            </thead>
+            <tbody id="cart-items">
+                <!-- Produktet do të shfaqen këtu dinamikisht -->
+            </tbody>
+        </table>
+        <p id="total">Totali: 0$</p>
+    </div>
+    <button onclick="clearCart()">Pastro Shportën</button>
+    
+    <script>
+        function loadCart() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let cartItemsContainer = document.getElementById('cart-items');
+            let totalPrice = 0;
+            cartItemsContainer.innerHTML = '';
+            
+            cart.forEach((item, index) => {
+                let row = document.createElement('tr');
+                let itemTotal = item.price * item.quantity;
+                totalPrice += itemTotal;
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${item.name}</td>
+                    <td>${item.price}$</td>
+                    <td>${item.quantity}</td>
+                    <td>${itemTotal}$</td>
+                    <td><button onclick="removeFromCart(${index})">Fshi</button></td>
+                `;
+                cartItemsContainer.appendChild(row);
+            });
+            
+            document.getElementById('total').innerText = `Totali: ${totalPrice}$`;
+        }
+        
+        function removeFromCart(index) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+        
+        function clearCart() {
+            localStorage.removeItem('cart');
+            loadCart();
+        }
+        
+        document.addEventListener('DOMContentLoaded', loadCart);
+    </script>
+</body>
+</html>

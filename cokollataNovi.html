@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cokollata Novi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button onclick="window.location.href='index.html'" class="home-button">🏠 Home</button>
+    <button onclick="window.location.href='adminNovi.html'" class="admin-button">🔧 Admin</button>
+    <button onclick="window.location.href='cart.html'" class="cart-button">🛒 Shporta</button>
+    <h1>Cokollata Novi</h1>
+
+    <!-- Galeria ku produktet do te shfaqen dinamikisht nga localStorage -->
+    <div class="gallery" id="productGallery"></div>
+
+    <!-- Overlay dhe popup për detajet e produktit -->
+    <div class="popup-overlay" onclick="closePopup()"></div>
+    <div class="popup" id="productPopup">
+        <h4 id="popupTitle"></h4>
+        <h5 id="popupPrice"></h5>
+        <input type="number" id="popupQuantity" min="0" value="" style="width: 50px;">
+        <button class="add-btn" onclick="addToCart()">+</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", loadProducts);
+
+        function loadProducts() {
+            const products = JSON.parse(localStorage.getItem("cokollataNoviProducts")) || [];
+            const gallery = document.getElementById("productGallery");
+            gallery.innerHTML = "";
+
+            products.forEach(product => {
+                const item = document.createElement("div");
+                item.classList.add("gallery-item");
+                item.onclick = () => openPopup(product.name, product.price);
+                item.innerHTML = `
+                    <img src="${product.image}">
+                    <h4>${product.name}</h4>
+                    <h6>${product.code}<h6> 
+                    <h6>${product.price}$</h6> <!-- Shtimi i kodit -->
+                `;
+                gallery.appendChild(item);
+            });
+        }
+
+        let selectedProduct = {};
+
+        function openPopup(name, price) {
+            selectedProduct = { name, price };
+            document.getElementById("popupTitle").innerText = name;
+            document.getElementById("popupPrice").innerText = price + "$";
+            document.getElementById("popupQuantity").value = "";
+            document.querySelector(".popup-overlay").style.display = "block";
+            document.getElementById("productPopup").style.display = "block";
+        }
+
+        function closePopup() {
+            document.querySelector(".popup-overlay").style.display = "none";
+            document.getElementById("productPopup").style.display = "none";
+        }
+
+        function addToCart() {
+            let quantity = parseInt(document.getElementById("popupQuantity").value);
+            if (isNaN(quantity) || quantity <= 0) {
+                alert('Ju lutem vendosni një sasi të vlefshme!');
+                return;
+            }
+
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let existingProduct = cart.find(item => item.name === selectedProduct.name);
+
+            if (existingProduct) {
+                existingProduct.quantity += quantity;
+            } else {
+                cart.push({ name: selectedProduct.name, price: selectedProduct.price, quantity });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert('Produkti u shtua në shportë!');
+            closePopup();
+        }
+    </script>
+</body>
+</html>

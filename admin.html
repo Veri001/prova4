@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Rio Mare</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="admin.js" defer></script>
+</head>
+<body>
+
+    <div class="admin-container">
+        <header class="admin-header">
+            <button class="back-button" onclick="window.location.href='rioMare.html'">🔙 Kthehu te Produktet</button>
+        </header>
+
+        <main class="admin-main">
+            <section class="product-form">
+                <h2>Shto/Modifiko Produkt</h2>
+                <form id="productForm">
+                    <input type="text" id="productName" placeholder="Emri i produktit" required>
+                    <input type="text" id="productCode" placeholder="Kodi i produktit" required> <!-- Fusha e re -->
+                    <input type="number" id="productPrice" placeholder="Çmimi" required>
+                    <input type="file" id="productImageFile" accept="image/*">
+                    <button type="submit">Ruaj Produktin</button>
+                </form>
+            </section>
+
+            <section class="product-list">
+                <h2>Lista e Produkteve</h2>
+                <div id="productList"></div>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>
